@@ -48,7 +48,7 @@ char *Which(char *input)
 	int string_len;
 	struct stat Stat;
 
-	path = Strdup(getenv("PATH"));
+	path = Strdup(getenv_custom("PATH"));
 	copy = path;
 
 	tok = strtok(copy, ":");

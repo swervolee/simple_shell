@@ -152,7 +152,7 @@ char *En_var(char *input, SHELL *shell __attribute__ ((unused)))
 	else
 	{
 		ename++;
-		copy = getenv_custom(ename, shell);
+		copy = getenv_custom(ename);
 	}
 	if (copy)
 	{

@@ -107,7 +107,7 @@ int handle_builtin_commands(SHELL *shell);
 
 			/* FUNCTION IMPLIMENTATIONS */
 
-char *getenv_custom(const char *name, SHELL *shell);
+char *getenv_custom(const char *name);
 
 char *Strcat(char *dest, const char *src);
 char *Strcpy(char *dest, const char *src);

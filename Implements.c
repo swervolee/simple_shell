@@ -214,8 +214,9 @@ char* _strtok(char *str, const char *delim)
  * @name: name of the variable
  * @shell_s: struct to store environment variables
  * Return:
- *
-char *getenv_custom(const char *name, SHELL *shell)
+ **/
+
+char *getenv_custom(const char *name)
 {
 	size_t name_length = 0;
 	int match;
@@ -228,7 +229,7 @@ char *getenv_custom(const char *name, SHELL *shell)
 	}
 	while (name[name_length] != '\0')
 		name_length++;
-	for (env = shell->_environ; *env != NULL; env++)
+	for (env = environ; *env != NULL; env++)
 	{
 		match = 1;
 		for (i = 0; i < name_length; i++)
@@ -245,10 +246,10 @@ char *getenv_custom(const char *name, SHELL *shell)
 		}
 	}
 	return (NULL);
-}*/
+}
 
 
-char *getenv_custom(const char *name, SHELL *shell)
+/*char *getenv_custom(const char *name, SHELL *shell)
 {
 	char **copy = NULL;
 	int i, j, k;
@@ -275,7 +276,7 @@ char *getenv_custom(const char *name, SHELL *shell)
 		}
 	}
 	return (NULL);
-}
+}*/
 
 
 int Strlen(char *input)

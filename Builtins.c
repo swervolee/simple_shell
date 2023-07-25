@@ -68,10 +68,10 @@ void change_dir_command(SHELL *shell)
 	char *dir = shell->toks[1];
 
 	if (!dir || Strcmp(dir, "~") == 0)
-		dir = getenv_custom("HOME", shell);
+		dir = getenv_custom("HOME");
 	else if (Strcmp(dir, "-") == 0)
 	{
-		dir = getenv_custom("OLDPWD", shell);
+		dir = getenv_custom("OLDPWD");
 		if (dir)
 		{
 			write(STDOUT_FILENO, dir, strlen(dir));
