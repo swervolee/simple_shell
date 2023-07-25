@@ -51,7 +51,7 @@ char *Which(char *input)
 	path = Strdup(getenv_custom("PATH"));
 	copy = path;
 
-	tok = strtok(copy, ":");
+	tok = _strtok(copy, ":");
 
 	while (tok)
 	{
@@ -79,7 +79,7 @@ char *Which(char *input)
 		else
 		{
 			free(dir);
-			tok = strtok(NULL, ":");
+			tok = _strtok(NULL, ":");
 		}
 	}
 

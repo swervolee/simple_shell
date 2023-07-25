@@ -97,8 +97,8 @@ void change_dir_command(SHELL *shell)
 				{
 					if (getcwd(cwd, 64) != NULL)
 					{
-						setenv("PWD", cwd, 1);
-						setenv("OLDPWD", old_pwd, 1);
+						set_env("PWD", cwd, 1, shell);
+						set_env("OLDPWD", old_pwd, 1, shell);
 						if (!printed)
 						{
 							write(STDOUT_FILENO, cwd, strlen(cwd));
