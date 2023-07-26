@@ -43,3 +43,26 @@ int Strlen(char *input)
 		;
 	return (i);
 }
+
+
+/**
+ *extrnsion - an extesnion for strtok
+ *@nextToken: the next token
+ *@delim: the delimiters used
+ *@isDelimiter: a tracker for the delimiters
+ *Return: nothing
+ */
+
+void extension(char *nextToken, const char *delim, int *isDelimiter)
+{
+	int i;
+
+	for (i = 0; delim[i] != '\0'; i++)
+	{
+		if (*nextToken == delim[i])
+		{
+			*isDelimiter = 1;
+			break;
+		}
+	}
+}

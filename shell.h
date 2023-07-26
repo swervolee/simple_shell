@@ -104,6 +104,7 @@ void shuffle(char *line, int mode);
 void Free_log(log *head);
 void seperator(log **head, char *line);
 void write_error(char *error, SHELL *shell);
+void extension(char *nextToken, const char *delim, int *isDelimiter);
 
 char *replacer(char *input, char *new, char *copy, char *ename);
 char **tokenize(char *line, int mode);

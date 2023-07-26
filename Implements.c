@@ -147,7 +147,6 @@ char *_strtok(char *str, const char *delim)
 	static char *nextToken;
 	char *token = NULL;
 	int isDelimiter;
-	size_t i;
 
 	if (str != NULL)
 		nextToken = str;
@@ -156,14 +155,7 @@ char *_strtok(char *str, const char *delim)
 	while (*nextToken != '\0')
 	{
 		isDelimiter = 0;
-		for (i = 0; delim[i] != '\0'; i++)
-		{
-			if (*nextToken == delim[i])
-			{
-				isDelimiter = 1;
-				break;
-			}
-		}
+		extension(nextToken, delim, &isDelimiter);
 		if (!isDelimiter)
 			break;
 		nextToken++;
@@ -174,14 +166,7 @@ char *_strtok(char *str, const char *delim)
 	while (*nextToken != '\0')
 	{
 		isDelimiter = 0;
-		for (i = 0; delim[i] != '\0'; i++)
-		{
-			if (*nextToken == delim[i])
-			{
-				isDelimiter = 1;
-				break;
-			}
-		}
+		extension(nextToken, delim, &isDelimiter);
 		if (isDelimiter)
 		{
 			*nextToken = '\0', nextToken++;
