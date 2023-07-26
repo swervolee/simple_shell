@@ -63,62 +63,34 @@ void exit_command(SHELL *shell)
 
 void change_dir_command(SHELL *shell)
 {
-	int result, printed = 0;
-	char *cwd, *old_pwd;
-	char *dir = shell->toks[1];
+	int result;
+	char cwd[1024];
 
-	if (!dir || Strcmp(dir, "~") == 0)
-		dir = getenv_custom("HOME");
-	else if (Strcmp(dir, "-") == 0)
+	if (!shell->toks[1])
 	{
-		dir = getenv_custom("OLDPWD");
-		if (dir)
-		{
-			write(STDOUT_FILENO, dir, strlen(dir));
-			write(STDOUT_FILENO, "\n", 1);
-			printed = 1;
-		}
-		else
-		{
-			write(STDERR_FILENO, "cd: OLDPWD not set\n", 19);
-			return;
-		}
+		result = chdir(getenv_custom("HOME"));
 	}
-	old_pwd = malloc(64 *sizeof(char));
-	if (old_pwd)
+
+	else if (Strcmp(shell->toks[1], "-") == 0)
 	{
-		if (getcwd(old_pwd, 64) != NULL)
-		{
-			result = chdir(dir);
-			if (result == 0)
-			{
-				cwd = malloc(64 *sizeof(char));
-				if (cwd)
-				{
-					if (getcwd(cwd, 64) != NULL)
-					{
-						set_env("PWD", cwd, 1, shell);
-						set_env("OLDPWD", old_pwd, 1, shell);
-						if (!printed)
-						{
-							write(STDOUT_FILENO, cwd, strlen(cwd));
-							write(STDOUT_FILENO, "\n", 1);
-						}
-					}
-					else
-						write(STDERR_FILENO, "getcwd error\n", 13);
-					free(cwd);
-				}
-				else
-					write(STDERR_FILENO, "malloc error\n", 13);
-			}
-			else
-				write(STDERR_FILENO, "chdir error\n", 12);
-		}
-		else
-			write(STDERR_FILENO, "getcwd error\n", 13);
-		free(old_pwd);
+		result = chdir(getenv_custom("OLDPWD"));
 	}
+
 	else
-		write(STDERR_FILENO, "malloc error\n", 13);
+	{
+		result = chdir(shell->toks[1]);
+	}
+
+	if (result == -1)
+	{
+		perror(shell->av[0]);
+		return;
+	}
+
+	else if (result != -1)
+	{
+		getcwd(cwd, sizeof(cwd));
+		setenv("OLDPWD", getenv("PWD"), 1);
+		setenv("PWD", cwd, 1);
+	}
 }
