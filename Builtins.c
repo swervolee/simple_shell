@@ -61,7 +61,7 @@ void exit_command(SHELL *shell)
 	}
 }
 
-/*void change_dir_command(SHELL *shell)
+void change_dir_command(SHELL *shell)
 {
 	int result;
 	char cwd[1024];
@@ -93,10 +93,10 @@ void exit_command(SHELL *shell)
 		setenv("OLDPWD", getenv("PWD"), 1);
 		setenv("PWD", cwd, 1);
 	}
-	}*/
+}
 
 
-void change_dir_command(SHELL *shell) {
+/*void change_dir_command(SHELL *shell) {
 	int result;
 	char cwd[1024];
 	const char *oldpwd;
@@ -132,3 +132,4 @@ void change_dir_command(SHELL *shell) {
 		setenv("PWD", cwd, 1);
 	}
 }
+*/
