@@ -88,11 +88,21 @@ void change_dir_command(SHELL *shell)
 {
 	int result;
 	char cwd[1024];
-	const char *oldpwd;
+	const char *oldpwd, *home;;
 
 	if (!shell->toks[1] || Strcmp(shell->toks[1], "~") == 0)
 	{
-		result = chdir(getenv_custom("HOME"));
+		home = getenv_custom("HOME");
+		if (!home)
+		{
+			write(STDERR_FILENO, shell->av[0], Strlen(shell->av[0]));
+			write(STDERR_FILENO, ": HOME not set\n", 15);
+			return;
+		}
+/*		oldpwd = getenv_custom("PWD");*/
+		result = chdir(home);
+		oldpwd = getenv_custom("PWD");
+		/*result = chdir(getenv_custom("HOME"));*/
 	}
 	else if (Strcmp(shell->toks[1], "-") == 0)
 	{
@@ -107,6 +117,7 @@ void change_dir_command(SHELL *shell)
 	}
 	else
 	{
+		oldpwd = getenv_custom("PWD");
 		result = chdir(shell->toks[1]);
 	}
 
@@ -120,7 +131,7 @@ void change_dir_command(SHELL *shell)
 	}
 	else if (!shell->toks[1])
 		return;
-	else if (result != -1)
+	else
 	{
 		getcwd(cwd, sizeof(cwd));
 		write(STDOUT_FILENO, cwd, Strlen(cwd));
