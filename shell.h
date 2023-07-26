@@ -22,11 +22,25 @@ extern char **environ;
 #include <limits.h>
 
 
-
-                           /*STRUCTS*/
+			/*STRUCTS*/
 
 
 /*holds essential variables for programs runtime*/
+
+/**
+ * struct SHELL - This struct represents the shell environment and stores info
+ * on the shell's state.
+ * @av: An array of strings representing the command-line arguments passed
+ * to the shell.
+ * @toks: An array of strings representing the tokens of the current command
+ * input.
+ * @pid: An integer representing the process ID of the current process.
+ * @status: An integer representing the exit status of the last executed
+ * command.
+ * @_environ: An array of strings.
+ * @loop_count: An integer representing the number of times the shell has
+ * executed its main loop.
+ */
 
 typedef struct SHELL
 {
@@ -41,18 +55,32 @@ typedef struct SHELL
 
 /*builtin command struct*/
 
-typedef struct
+/**
+ * struct builtincommands - This struct stores built-in commands in the shell.
+ * @command: A string representing the name of the built-in command.
+ * @function: A function pointer to the function that executes
+ * the built-in command.
+ */
+
+typedef struct builtincommands
 {
 	char *command;
-	void (*function)(SHELL*);
+	void (*function)(SHELL *);
 } builtin;
 
 
-
-                              /*LINKED LISTS*/
+				/*LINKED LISTS*/
 
 
 /*logical operators struct*/
+
+/**
+ * struct log - This struct represents a node in a linked list used to store
+ * logical operators in a command line.
+ * @com: A string representing the command associated with the node.
+ * @sep: A character representing the logical operator separator.
+ * @next: A pointer to the next node in the linked list.
+ */
 
 typedef struct log
 {
@@ -74,12 +102,12 @@ void Log(log **head, char *command);
 void En_passant(SHELL *shell, log **current);
 void shuffle(char *line, int mode);
 void Free_log(log *head);
-void seperator(log **head,char *line);
+void seperator(log **head, char *line);
 void write_error(char *error, SHELL *shell);
 
-char *replacer(char *input,char *new, char *copy, char *ename);
+char *replacer(char *input, char *new, char *copy, char *ename);
 char **tokenize(char *line, int mode);
-char *hash(char* buffer);
+char *hash(char *buffer);
 char *Which(char *input);
 char *_strtok(char *str, const char *delim);
 char *Itoa(int n);
@@ -109,7 +137,6 @@ int handle_builtin_commands(SHELL *shell);
 
 char *getenv_custom(const char *name);
 int Atoi(const char *nptr);
-int set_env(const char *name, const char *value, int overwrite, SHELL *shell_s __attribute__((unused)));
 char *Strcat(char *dest, const char *src);
 char *Strcpy(char *dest, const char *src);
 int Strcmp(const char *s1, const char *s2);
