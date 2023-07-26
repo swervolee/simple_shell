@@ -4,6 +4,7 @@
  *global_var - checks for eviroment variables
  *@input: the input strig
  *@shell: the main struct
+ *Return: an intergrated string
  */
 
 char *global_var(char *input __attribute__ ((unused)), SHELL *shell)
@@ -15,7 +16,7 @@ char *global_var(char *input __attribute__ ((unused)), SHELL *shell)
 	{
 		if (input[i] == '$')
 		{
-			if (input[i+ 1] == '?')
+			if (input[i + 1] == '?')
 			{
 				status = Itoa(shell->status);
 				return (exit_status(input, status));
@@ -84,7 +85,12 @@ char *exit_status(char *input, char *status)
 	return (new);
 }
 
-
+/**
+ *identity - handles the pid
+ *@input: the string input
+ *@id: the string id
+ *Return: a string with the id intergrated
+ */
 
 char *identity(char *input, char *id)
 {
@@ -125,15 +131,19 @@ char *identity(char *input, char *id)
 	return (new);
 }
 
+/**
+ *En_var - handles enviroment variables
+ *@input: the string input
+ *@shell: the mai struct
+ *Return: a string with the enviroment variable  integrated
+ */
 
 char *En_var(char *input, SHELL *shell __attribute__ ((unused)))
 {
 	char *ename, *copy, *new;
 	int len;
 
-	ename = input;
-	copy = NULL;
-
+	ename = input, copy = NULL;
 	while (*ename)
 	{
 		if (*ename == '$')
@@ -142,13 +152,11 @@ char *En_var(char *input, SHELL *shell __attribute__ ((unused)))
 		}
 		ename++;
 	}
-
 	ename = _strtok(ename, " \n");
 	if (!*(ename + 1))
 	{
 		copy = "$";
 	}
-
 	else
 	{
 		ename++;
@@ -163,20 +171,25 @@ char *En_var(char *input, SHELL *shell __attribute__ ((unused)))
 	{
 		new = malloc((Strlen(input) + 1) * sizeof(char));
 	}
-
 	if (!new)
 	{
 		exit(EXIT_FAILURE);
 	}
-
 	return (replacer(input, new, copy, (*ename == '$' ? ename : ename - 1)));
 }
 
+/**
+ *replacer - where the swappiong takees place
+ *@input: the input string
+ *@new: the new mallocated string
+ *@ename: the name be replaced
+ *@copy: the enviroment variable to copy
+ *Return: an itergrated string
+ */
 
-char *replacer(char *input,char *new, char *copy, char *ename)
+char *replacer(char *input, char *new, char *copy, char *ename)
 {
 	int i, j, k;
-
 
 	if (copy)
 	{
@@ -213,9 +226,7 @@ char *replacer(char *input,char *new, char *copy, char *ename)
 			}
 		}
 	}
-
 	new[j] = '\0';
-
 	free(input);
 	return (new);
 }

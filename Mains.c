@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ *main - entry point
+ *@ac: the arguement count
+ *@argv: the argurment vector
+ *Return: status of the exectutions
+ */
+
 int main(int ac __attribute__ ((unused)), char **argv)
 {
 	char *line;

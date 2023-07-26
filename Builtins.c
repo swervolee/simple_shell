@@ -7,7 +7,7 @@
  */
 int handle_builtin_commands(SHELL *shell)
 {
-	long unsigned int i;
+	unsigned long int i;
 	int exit_status;
 
 	builtin builtin_commands[] = {
@@ -47,6 +47,7 @@ int handle_builtin_commands(SHELL *shell)
 void env_command(SHELL *shell)
 {
 	char **_env = shell->_environ;
+
 	while (*_env)
 	{
 		Write(*_env);
@@ -88,54 +89,35 @@ void change_dir_command(SHELL *shell)
 {
 	int result;
 	char cwd[1024];
-	const char *oldpwd, *home;;
+	const char *oldpwd;
 
 	if (!shell->toks[1] || Strcmp(shell->toks[1], "~") == 0)
 	{
-		home = getenv_custom("HOME");
-		if (!home)
-		{
-			write(STDERR_FILENO, shell->av[0], Strlen(shell->av[0]));
-			write(STDERR_FILENO, ": HOME not set\n", 15);
-			return;
-		}
-/*		oldpwd = getenv_custom("PWD");*/
-		result = chdir(home);
-		oldpwd = getenv_custom("PWD");
-		/*result = chdir(getenv_custom("HOME"));*/
+		result = chdir(getenv_custom("HOME"));
 	}
 	else if (Strcmp(shell->toks[1], "-") == 0)
 	{
 		oldpwd = getenv_custom("OLDPWD");
 		if (oldpwd[0] == '\0')
 		{
-			write(STDERR_FILENO, shell->av[0], Strlen(shell->av[0]));
-			write(STDERR_FILENO, ": OLDPWD not set\n", 17);
+			perror("hsh");
 			return;
 		}
 		result = chdir(oldpwd);
 	}
 	else
 	{
-		oldpwd = getenv_custom("PWD");
 		result = chdir(shell->toks[1]);
 	}
 
 	if (result == -1)
 	{
-		write(STDERR_FILENO, shell->av[0], Strlen(shell->av[0]));
-		write(STDERR_FILENO, ": ", 2);
-		write(STDERR_FILENO, shell->toks[1], Strlen(shell->toks[1]));
-		write(STDERR_FILENO, ": No such file or directory\n", 28);
+		perror(shell->av[0]);
 		return;
 	}
-	else if (!shell->toks[1])
-		return;
-	else
+	else if (result != -1)
 	{
 		getcwd(cwd, sizeof(cwd));
-		write(STDOUT_FILENO, cwd, Strlen(cwd));
-		write(STDOUT_FILENO, "\n", 1);
 		setenv("OLDPWD", getenv_custom("PWD"), 1);
 		setenv("PWD", cwd, 1);
 	}

@@ -10,39 +10,33 @@ void *Realloc(void *ptr, size_t old_size, size_t size)
 	char *new_char_ptr;
 	size_t i;
 
-
 	if (!ptr)
 	{
-		return malloc(size);
+		return (malloc(size));
 	}
 	else if (size == 0)
 	{
 		free(ptr);
-		return NULL;
+		return (NULL);
 	}
 	else
 	{
 		new_ptr = malloc(size);
 		if (!new_ptr)
 		{
-			return NULL;
+			return (NULL);
 		}
-
 		if (size < old_size)
 		{
 			old_size = size;
 		}
-
 		new_char_ptr = (char *)new_ptr;
-
 		for (i = 0; i < old_size; i++)
 		{
 			new_char_ptr[i] = old_ptr[i];
 		}
-
 		free(ptr);
-
-		return new_ptr;
+		return (new_ptr);
 	}
 }
 
@@ -54,8 +48,7 @@ char *Getline()
 	char *buffer, r = 0;
 	int i = 0, charsRead, buffer_size;
 
-	buffer_size = buffsize;
-	buffer = malloc(buffer_size * sizeof(char));
+	buffer_size = buffsize,	buffer = malloc(buffer_size * sizeof(char));
 
 	if (buffer == NULL)
 	{
@@ -63,21 +56,16 @@ char *Getline()
 		return (NULL);
 	}
 
-	while(r != EOF && r != '\n')
+	while (r != EOF && r != '\n')
 	{
 		fflush(stdin);
-
 		charsRead = read(STDIN_FILENO, &r, 1);
-
-
 		if (charsRead == 0)
 		{
 			free(buffer);
 			exit(EXIT_SUCCESS);
 		}
-
 		buffer[i] = r;
-
 		if (buffer[0] == '\n')
 		{
 			free(buffer);
@@ -86,26 +74,17 @@ char *Getline()
 
 		i++;
 	}
-
-	if (r == EOF)
-	{
-		Write("\n");
-	}
-
-	buffer[i] = '\0';
-	buffer = hash(buffer);
-
+	buffer[i] = '\0', buffer = hash(buffer);
 	if (buffer == NULL)
 	{
 		return ("\0");
 	}
-
 	return (buffer);
 }
 
 
 
-char *hash(char* buffer)
+char *hash(char *buffer)
 {
 	int i;
 	bool quotes = false;
@@ -133,7 +112,7 @@ char *hash(char* buffer)
 		}
 	}
 
-	return buffer;
+	return (buffer);
 }
 
 
@@ -145,19 +124,12 @@ char* _strtok(char *str, const char *delim)
 	size_t i;
 
 	if (str != NULL)
-	{
 		nextToken = str;
-	}
-
 	if (nextToken == NULL || *nextToken == '\0')
-	{
 		return NULL;
-	}
-
 	while (*nextToken != '\0')
 	{
 		isDelimiter = 0;
-
 		for (i = 0; delim[i] != '\0'; i++)
 		{
 			if (*nextToken == delim[i])
@@ -166,26 +138,16 @@ char* _strtok(char *str, const char *delim)
 				break;
 			}
 		}
-
 		if (!isDelimiter)
-		{
 			break;
-		}
-
 		nextToken++;
 	}
-
 	if (*nextToken == '\0')
-	{
 		return NULL;
-	}
-
 	token = nextToken;
-
 	while (*nextToken != '\0')
 	{
 		isDelimiter = 0;
-
 		for (i = 0; delim[i] != '\0'; i++)
 		{
 			if (*nextToken == delim[i])
@@ -194,17 +156,13 @@ char* _strtok(char *str, const char *delim)
 				break;
 			}
 		}
-
 		if (isDelimiter)
 		{
-			*nextToken = '\0';
-			nextToken++;
+			*nextToken = '\0', nextToken++;
 			break;
 		}
-
 		nextToken++;
 	}
-
 	return token;
 }
 

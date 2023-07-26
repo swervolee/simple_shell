@@ -1,66 +1,65 @@
 #include "shell.h"
 
+/**
+ *Itoa- changes from integer to string
+ *@n: the number
+ *Return: a string of the number
+ */
 
 char *Itoa(int n)
 {
 	unsigned int n1, temp;
 	char *buffer;
-	int i;
-	int length = 1;
+	int i, length = 1;
 
 	if (n < 0)
 	{
-		length++;
-		n1 = (unsigned int)(-n);
+		length++, n1 = (unsigned int)(-n);
 	}
-
 	else
 	{
 		n1 = (unsigned int)n;
 	}
-
 	temp = n1;
-
 	while (temp /= 10)
 	{
 		length++;
 	}
-
 	buffer = (char *)malloc((length + 1) * sizeof(char));
-
 	if (buffer == NULL)
 	{
-		return NULL;
+		return (NULL);
 	}
-
 	buffer[length] = '\0';
-
 	if (n < 0)
 	{
 		buffer[0] = '-';
 	}
-
 	for (i = length - 1; i >= 0; i--)
 	{
-		buffer[i] = (n1 % 10) + '0';
-		n1 /= 10;
+		buffer[i] = (n1 % 10) + '0', n1 /= 10;
 	}
 
-	return buffer;
+	return (buffer);
 }
+
+/**
+ *Strdup - dublicates a string
+ *@s: the string to be dublictated
+ *Return: a dublicated string
+ */
+
 char *Strdup(const char *s)
 {
 	size_t len;
 	const char *ptr;
-	char *copy;
-	char *copy_ptr;
+	char *copy, *copy_ptr;
 
 	if (s == NULL)
 	{
-		return NULL;
+		return (NULL);
 	}
-	len = 0;
-	ptr = s;
+	len = 0, ptr = s;
 	while (*ptr != '\0')
 	{
 		len++;
@@ -84,6 +83,12 @@ char *Strdup(const char *s)
 	return (copy);
 }
 
+/**
+ *Strcmp - compares two strings
+ *@s1: the first character
+ *@s2: the second string
+ *Return: 0 if they match else 1
+ */
 
 int Strcmp(const char *s1, const char *s2)
 {
@@ -97,6 +102,14 @@ int Strcmp(const char *s1, const char *s2)
 	return (*s1 - *s2);
 }
 
+
+/**
+ *Strcpy - copies a string
+ *@dest: the destination
+ *@src:  the source
+ *Return: the copied string
+ */
+
 char *Strcpy(char *dest, const char *src)
 {
 	char *dest_start = dest;
@@ -108,6 +121,13 @@ char *Strcpy(char *dest, const char *src)
 
 	return (dest_start);
 }
+
+/**
+ *Strcat - concatenates two strings
+ *@dest: the destination
+ *@src: the source string
+ *Return: the concanted string
+ */
 
 char *Strcat(char *dest, const char *src)
 {
@@ -124,26 +144,3 @@ char *Strcat(char *dest, const char *src)
 	return (dest_start);
 }
 
-int Atoi(const char *nptr)
-{
-	int result = 0, sign = 1, i = 0;
-
-	if (nptr[0] == '-')
-	{
-		sign = -1;
-		i = 1;
-	}
-	while (nptr[i] != '\0')
-	{
-		if (nptr[i] >= '0' && nptr[i] <= '9')
-		{
-			result = result * 10 + (nptr[i] - '0');
-			i++;
-		}
-		else
-		{
-			return (0);
-		}
-	}
-	return (sign * result);
-}

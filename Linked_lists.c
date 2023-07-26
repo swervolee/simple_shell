@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ *Log - a linked list for logical operators
+ *@head: the head of the linked list
+ *@command: the input command
+ *Return: nothing
+ */
 
 void Log(log **head, char *command)
 {
@@ -26,11 +32,16 @@ void Log(log **head, char *command)
 	}
 
 	current->next = new;
-	return;
 }
 
+/**
+ *seperator - determines what command should be executed next
+ *@head: the head of the linked list
+ *@line: the tokenized command
+ *Return: nothing
+ */
 
-void seperator(log **head,char *line)
+void seperator(log **head, char *line)
 {
 	int i;
 	log *current;
