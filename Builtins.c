@@ -61,7 +61,7 @@ void exit_command(SHELL *shell)
 	}
 }
 
-void change_dir_command(SHELL *shell)
+/*void change_dir_command(SHELL *shell)
 {
 	int result;
 	char cwd[1024];
@@ -91,6 +91,44 @@ void change_dir_command(SHELL *shell)
 	{
 		getcwd(cwd, sizeof(cwd));
 		setenv("OLDPWD", getenv("PWD"), 1);
+		setenv("PWD", cwd, 1);
+	}
+	}*/
+
+
+void change_dir_command(SHELL *shell) {
+	int result;
+	char cwd[1024];
+	const char *oldpwd;
+
+	if (!shell->toks[1] || Strcmp(shell->toks[1], "~") == 0)
+	{
+		result = chdir(getenv_custom("HOME"));
+	}
+	else if (Strcmp(shell->toks[1], "-") == 0)
+	{
+		oldpwd = getenv_custom("OLDPWD");
+		if (oldpwd[0] == '\0')
+		{
+			perror("hsh");
+			return;
+		}
+		result = chdir(oldpwd);
+	}
+	else
+	{
+		result = chdir(shell->toks[1]);
+	}
+
+	if (result == -1)
+	{
+		perror(shell->av[0]);
+		return;
+	}
+	else if (result != -1)
+	{
+		getcwd(cwd, sizeof(cwd));
+		setenv("OLDPWD", getenv_custom("PWD"), 1);
 		setenv("PWD", cwd, 1);
 	}
 }
