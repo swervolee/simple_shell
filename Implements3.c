@@ -46,7 +46,7 @@ int Strlen(char *input)
 
 
 /**
- *extrnsion - an extesnion for strtok
+ *extension - an extesnion for strtok
  *@nextToken: the next token
  *@delim: the delimiters used
  *@isDelimiter: a tracker for the delimiters
