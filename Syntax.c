@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * Syntax - check the syntax of a command for correctness.
+ * @input: The command to check for syntax.
+ * @shell: Pointer to the shell data structure.
+ *
+ * Return: 0 on success, -1 if there is a syntax error.
+ */
 
 int Syntax(char *input, SHELL *shell)
 {
@@ -12,7 +19,13 @@ int Syntax(char *input, SHELL *shell)
 
 }
 
-
+/**
+ * First - Check the syntax of the first token in the command.
+ * @input: The command to check for the first token.
+ * @shell: Pointer to the shell data structure.
+ *
+ * Return: 1 on success, -1 if there is a syntax error.
+ */
 
 int First(char *input, SHELL *shell)
 {
@@ -21,7 +34,6 @@ int First(char *input, SHELL *shell)
 
 	for (i = 0; input[i]; i++)
 	{
-
 		while (input[i] == ' ' || input[i] == '\t')
 		{
 			i++;
@@ -50,17 +62,21 @@ int First(char *input, SHELL *shell)
 			break;
 		}
 	}
-
 	if (Error_txt)
 	{
 		write_error(Error_txt, shell);
 		return (-1);
 	}
-
 	return (1);
 }
 
-
+/**
+ * Syntax_error - Check for syntax errors in the command.
+ * @input: The command to check for syntax errors.
+ * @shell: Pointer to the shell data structure.
+ *
+ * Return: 0 on success, -1 if a syntax error is present.
+ */
 
 int Syntax_error(char *input, SHELL *shell)
 {
@@ -93,13 +109,11 @@ int Syntax_error(char *input, SHELL *shell)
 			}
 		}
 	}
-
 	if (error_txt)
 	{
 		write_error(error_txt, shell);
 		return (-1);
 	}
-
 	else if (Pipe(input, shell) == -1 || ampersand(input, shell) == -1)
 	{
 		return (-1);
@@ -108,7 +122,13 @@ int Syntax_error(char *input, SHELL *shell)
 	return (0);
 }
 
-
+/**
+ * Pipe - Check for syntax errors retated to pipes in command.
+ * @input: the command to check for pipe-related syntax errors.
+ * @shell: Pointer to the shell data structure.
+ *
+ * Return: 0 on success, -1 if a syntax error is encountered.
+ */
 
 int Pipe(char *input, SHELL *shell)
 {
@@ -130,7 +150,7 @@ int Pipe(char *input, SHELL *shell)
 				break;
 			}
 
-			else if (input[i + 1]== '&')
+			else if (input[i + 1] == '&')
 			{
 				error_txt = (input[i + 2] == '&' ? "&&" : "&");
 				break;
@@ -154,6 +174,14 @@ int Pipe(char *input, SHELL *shell)
 	return (0);
 }
 
+/**
+ * ampersand - Check for syntax errors related to ampersands in the command.
+ * @input: the command to check for ampersand-related syntax errors.
+ * @shell: Pointer to the shell data structure.
+ *
+ * Return: 0 on success, -1 if a syntax error is encountered.
+ */
+
 int ampersand(char *input, SHELL *shell)
 {
 		int i;
@@ -174,7 +202,7 @@ int ampersand(char *input, SHELL *shell)
 				break;
 			}
 
-			else if (input[i + 1]== '|')
+			else if (input[i + 1] == '|')
 			{
 				error_txt = (input[i + 2] == '|' ? "||" : "|");
 				break;

@@ -2,6 +2,14 @@
 
 #define buffsize 1024
 
+/**
+ * Realloc - function that reallocates memory  using malloc.
+ * @ptr: Pointer to the memory to be reduced.
+ * @old_size: The old size of the memory to be changed.
+ * @size: the new size to change to.
+ *
+ * Return: void.
+ */
 
 void *Realloc(void *ptr, size_t old_size, size_t size)
 {
@@ -41,6 +49,12 @@ void *Realloc(void *ptr, size_t old_size, size_t size)
 }
 
 
+/**
+ * Getline - Function that fetches the entire input from the output
+ * stream.
+ *
+ * Return: The input fetched from the stream.
+ */
 
 
 char *Getline()
@@ -82,7 +96,12 @@ char *Getline()
 	return (buffer);
 }
 
-
+/**
+ * hash - Function that handles the case where # has been used in a command.
+ * @buffer: The pointer to where the user input is stored.
+ *
+ * Return: buffer after the #has been ignored hence a comment.
+ */
 
 char *hash(char *buffer)
 {
@@ -115,10 +134,17 @@ char *hash(char *buffer)
 	return (buffer);
 }
 
+/**
+ * _strtok - function that tokenizes a string based on whatever it is given.
+ * @str: Pointer to the string to be tokenized.
+ * @delim: The delimiter which strtok function uses to tokenize the string.
+ *
+ * Return: The tokenized words, else return NULL upon failure.
+ */
 
-char* _strtok(char *str, const char *delim)
+char *_strtok(char *str, const char *delim)
 {
-	static char *nextToken = NULL;
+	static char *nextToken;
 	char *token = NULL;
 	int isDelimiter;
 	size_t i;
@@ -126,7 +152,7 @@ char* _strtok(char *str, const char *delim)
 	if (str != NULL)
 		nextToken = str;
 	if (nextToken == NULL || *nextToken == '\0')
-		return NULL;
+		return (NULL);
 	while (*nextToken != '\0')
 	{
 		isDelimiter = 0;
@@ -143,7 +169,7 @@ char* _strtok(char *str, const char *delim)
 		nextToken++;
 	}
 	if (*nextToken == '\0')
-		return NULL;
+		return (NULL);
 	token = nextToken;
 	while (*nextToken != '\0')
 	{
@@ -163,15 +189,16 @@ char* _strtok(char *str, const char *delim)
 		}
 		nextToken++;
 	}
-	return token;
+	return (token);
 }
 
 
 /**
  * getenv_custom - gets environment variables
  * @name: name of the variable
- * @shell_s: struct to store environment variables
- * Return:
+ *
+ * Return: NULL upone failure, else pointer to the value of the
+ * environment variable.
  **/
 
 char *getenv_custom(const char *name)
@@ -204,45 +231,4 @@ char *getenv_custom(const char *name)
 		}
 	}
 	return (NULL);
-}
-
-
-/*char *getenv_custom(const char *name, SHELL *shell)
-{
-	char **copy = NULL;
-	int i, j, k;
-
-	copy = shell->_environ;
-
-	for (i = 0; copy[i]; i++)
-	{
-		k = 0;
-		for (j = 0; copy[i][j]; j++)
-		{
-			if (copy[i][j] == '=')
-			{
-				return (copy[i] + j + 1);
-			}
-			if (name[k] == copy[i][j])
-			{
-				k++;
-			}
-			else
-			{
-				break;
-			}
-		}
-	}
-	return (NULL);
-}*/
-
-
-int Strlen(char *input)
-{
-	int i;
-
-	for (i = 0; input[i]; i++)
-		;
-
-	return (i);
 }

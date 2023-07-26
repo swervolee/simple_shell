@@ -46,7 +46,13 @@ int main(int ac __attribute__ ((unused)), char **argv)
 }
 
 
-
+/**
+ * fill_eshell - Function that fills the struct members with respective
+ * content.
+ * @eshell: The struct to be filled.
+ *
+ * Return: Void.
+ */
 
 void fill_eshell(SHELL *eshell)
 {
@@ -57,8 +63,12 @@ void fill_eshell(SHELL *eshell)
 }
 
 
-
-
+/**
+ * Write - Function that writes whatver content given to the POSIX.
+ * @input: Pointer to the content to be written out.
+ *
+ * Return: Void.
+ */
 
 void Write(char *input)
 {
