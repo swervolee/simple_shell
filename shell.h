@@ -108,6 +108,7 @@ int handle_builtin_commands(SHELL *shell);
 			/* FUNCTION IMPLIMENTATIONS */
 
 char *getenv_custom(const char *name);
+int Atoi(const char *nptr);
 int set_env(const char *name, const char *value, int overwrite, SHELL *shell_s __attribute__((unused)));
 char *Strcat(char *dest, const char *src);
 char *Strcpy(char *dest, const char *src);
