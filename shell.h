@@ -133,6 +133,9 @@ void change_dir_command(SHELL *shell);
 void exit_command(SHELL *shell);
 void env_command(SHELL *shell);
 int handle_builtin_commands(SHELL *shell);
+void setenv_command(SHELL *shell);
+int add_env_var(const char *name, const char *value, SHELL *shell);
+int modify_env_var(const char *name, const char *value, char ***environ);
 
 			/* FUNCTION IMPLIMENTATIONS */
 
@@ -145,5 +148,6 @@ char *Strdup(const char *s);
 void *Realloc(void *ptr, size_t old_size, size_t size);
 char *Getline();
 int Strlen(char *input);
+size_t my_strlen(const char *s);
 
 #endif

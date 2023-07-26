@@ -13,7 +13,8 @@ int handle_builtin_commands(SHELL *shell)
 	builtin builtin_commands[] = {
 		/*{"env", env_command},*/
 		{"exit", exit_command},
-		{"cd", change_dir_command}
+		{"cd", change_dir_command},
+		{"setenv", setenv_command}
 	};
 
 	for (i = 0; i < sizeof(builtin_commands) / sizeof(builtin); i++)
