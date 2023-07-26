@@ -145,5 +145,5 @@ int Atoi(const char *nptr)
 			return (0);
 		}
 	}
-	return (sign * ressult);
+	return (sign * result);
 }
