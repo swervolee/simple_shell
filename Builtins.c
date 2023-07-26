@@ -84,7 +84,8 @@ void exit_command(SHELL *shell)
  *@shell: the main struct
  *Return: nothing
  */
-void change_dir_command(SHELL *shell) {
+void change_dir_command(SHELL *shell)
+{
 	int result;
 	char cwd[1024];
 	const char *oldpwd;
@@ -98,7 +99,8 @@ void change_dir_command(SHELL *shell) {
 		oldpwd = getenv_custom("OLDPWD");
 		if (oldpwd[0] == '\0')
 		{
-			perror("hsh");
+			write(STDERR_FILENO, shell->av[0], Strlen(shell->av[0]));
+			write(STDERR_FILENO, ": OLDPWD not set\n", 17);
 			return;
 		}
 		result = chdir(oldpwd);
@@ -110,13 +112,20 @@ void change_dir_command(SHELL *shell) {
 
 	if (result == -1)
 	{
-		perror(shell->av[0]);
+		write(STDERR_FILENO, shell->av[0], Strlen(shell->av[0]));
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, shell->toks[1], Strlen(shell->toks[1]));
+		write(STDERR_FILENO, ": No such file or directory\n", 28);
 		return;
 	}
+	else if (!shell->toks[1])
+		return;
 	else if (result != -1)
 	{
 		getcwd(cwd, sizeof(cwd));
-		setenv("OLDPWD", getenv_custom("PWD"), 1);
-		setenv("PWD", cwd, 1);
+		write(STDOUT_FILENO, cwd, Strlen(cwd));
+		write(STDOUT_FILENO, "\n", 1);
+		set_env("OLDPWD", getenv_custom("PWD"), 1, shell);
+		set_env("PWD", cwd, 1, shell);
 	}
 }
