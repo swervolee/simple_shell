@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ *handle_builtin_commands - handles builtins
+ *@shell: the main struct
+ *Return: 1 case of exit, 0 on success and -1 for fail
+ */
 int handle_builtin_commands(SHELL *shell)
 {
 	long unsigned int i;
@@ -33,6 +38,12 @@ int handle_builtin_commands(SHELL *shell)
 	return (-1);
 }
 
+
+/**
+ *env_command - prints the enviroment variables
+ *@shell: the mian struct
+ *Return: nothing
+ */
 void env_command(SHELL *shell)
 {
 	char **_env = shell->_environ;
@@ -43,6 +54,13 @@ void env_command(SHELL *shell)
 		_env++;
 	}
 }
+
+/**
+ *exit_command - exits shell
+ *@shell: the main struct
+ *Return: nothing
+ */
+
 
 void exit_command(SHELL *shell)
 {
@@ -61,42 +79,12 @@ void exit_command(SHELL *shell)
 	}
 }
 
-void change_dir_command(SHELL *shell)
-{
-	int result;
-	char cwd[1024];
-
-	if (!shell->toks[1])
-	{
-		result = chdir(getenv_custom("HOME"));
-	}
-
-	else if (Strcmp(shell->toks[1], "-") == 0)
-	{
-		result = chdir(getenv_custom("OLDPWD"));
-	}
-
-	else
-	{
-		result = chdir(shell->toks[1]);
-	}
-
-	if (result == -1)
-	{
-		perror(shell->av[0]);
-		return;
-	}
-
-	else if (result != -1)
-	{
-		getcwd(cwd, sizeof(cwd));
-		setenv("OLDPWD", getenv("PWD"), 1);
-		setenv("PWD", cwd, 1);
-	}
-}
-
-
-/*void change_dir_command(SHELL *shell) {
+/**
+ *change_dir_command - changes directories
+ *@shell: the main struct
+ *Return: nothing
+ */
+void change_dir_command(SHELL *shell) {
 	int result;
 	char cwd[1024];
 	const char *oldpwd;
@@ -132,4 +120,3 @@ void change_dir_command(SHELL *shell)
 		setenv("PWD", cwd, 1);
 	}
 }
-*/
