@@ -125,7 +125,7 @@ void change_dir_command(SHELL *shell)
 		getcwd(cwd, sizeof(cwd));
 		write(STDOUT_FILENO, cwd, Strlen(cwd));
 		write(STDOUT_FILENO, "\n", 1);
-		set_env("OLDPWD", getenv_custom("PWD"), 1, shell);
-		set_env("PWD", cwd, 1, shell);
+		setenv("OLDPWD", getenv_custom("PWD"), 1);
+		setenv("PWD", cwd, 1);
 	}
 }
