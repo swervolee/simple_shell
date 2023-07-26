@@ -19,7 +19,7 @@ int handle_builtin_commands(SHELL *shell)
 			{
 				if (shell->toks[1])
 				{
-					exit_status = atoi(shell->toks[1]);
+					exit_status = Atoi(shell->toks[1]);
 					shell->status = exit_status;
 				}
 				else
@@ -50,7 +50,7 @@ void exit_command(SHELL *shell)
 
 	if (shell->toks[1] != NULL)
 	{
-		exit_status = atoi(shell->toks[1]);
+		exit_status = Atoi(shell->toks[1]);
 		shell->status = exit_status;
 		exit(shell->status);
 	}
