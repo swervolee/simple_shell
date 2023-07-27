@@ -145,5 +145,6 @@ char *Strdup(const char *s);
 void *Realloc(void *ptr, size_t old_size, size_t size);
 char *Getline();
 int Strlen(char *input);
+size_t my_strlen(const char *s);
 
 #endif

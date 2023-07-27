@@ -66,3 +66,21 @@ void extension(char *nextToken, const char *delim, int *isDelimiter)
 		}
 	}
 }
+
+/**
+ * my_strlen - function that counts the number of characters in a given string.
+ * @s: Pointer to the string whose characters are to be counted.
+ *
+ * Return: The number of character counted in the string.
+ **/
+
+size_t my_strlen(const char *s)
+{
+	size_t len = 0;
+
+	while (s[len] != '\0')
+	{
+		len++;
+	}
+	return (len);
+}
