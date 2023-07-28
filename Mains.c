@@ -1,5 +1,23 @@
 #include "shell.h"
 
+
+/**
+ * handle_sigint - Function that handles CTRL C.
+ * @signum: It represents the single number that triggers the signal.
+ *
+ * Return: void.
+ */
+
+void handle_sigint(int signum __attribute__((unused)))
+{
+	write(STDOUT_FILENO, "\n", 1);
+	if (isatty(STDIN_FILENO))
+	{
+		Write("<TINKER> ");
+		fflush(stdout);
+	}
+}
+
 /**
  *main - entry point
  *@ac: the arguement count
@@ -15,6 +33,8 @@ int main(int ac __attribute__ ((unused)), char **argv)
 
 	eshell.av = argv;
 	fill_eshell(&eshell);
+
+	signal(SIGINT, handle_sigint);
 
 	while (mode)
 	{

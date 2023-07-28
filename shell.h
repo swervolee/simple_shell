@@ -90,7 +90,7 @@ typedef struct log
 } log;
 
 			/* PROCESS FUNCTIONS */
-
+void handle_sigint(int signum __attribute__((unused)));
 void env_extract(SHELL *shell);
 void fill_eshell(SHELL *eshell);
 void Frees(SHELL *eshell);
