@@ -103,6 +103,7 @@ void En_passant(SHELL *shell, log **current);
 void shuffle(char *line, int mode);
 void Free_log(log *head);
 void seperator(log **head, char *line);
+void handle_file(SHELL *shell);
 void write_error(char *error, SHELL *shell);
 void extension(char *nextToken, const char *delim, int *isDelimiter);
 

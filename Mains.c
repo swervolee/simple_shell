@@ -18,6 +18,10 @@ int main(int ac __attribute__ ((unused)), char **argv)
 
 	while (mode)
 	{
+		if (eshell.av[1])
+		{
+			handle_file(&eshell);
+		}
 		line = NULL;
 		eshell.loop_count++;
 
