@@ -16,12 +16,12 @@ int main(int ac __attribute__ ((unused)), char **argv)
 	eshell.av = argv;
 	fill_eshell(&eshell);
 
+	if (eshell.av[1])
+	{
+		handle_file(&eshell);
+	}
 	while (mode)
 	{
-		if (eshell.av[1])
-		{
-			handle_file(&eshell);
-		}
 		line = NULL;
 		eshell.loop_count++;
 
