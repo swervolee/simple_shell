@@ -34,6 +34,10 @@ int main(int ac __attribute__ ((unused)), char **argv)
 	eshell.av = argv;
 	fill_eshell(&eshell);
 
+	if (argv[1])
+	{
+		handle_file(&eshell);
+	}
 	signal(SIGINT, handle_sigint);
 
 	while (mode)
